@@ -9,7 +9,11 @@ html {
 }
 
 body {
+    background-color: #ffc09f;
+    display: flex;
+    flex-direction: column;
     font-family: 'Teko', sans-serif;
+    height: 100%;
 }
 
 /* classes utilitárias */
@@ -23,6 +27,10 @@ body {
 
 .headerMain .logo {
     font-size: 2rem;
+}
+
+.mainContent {
+    flex-grow: 1;
 }
 
 .footerMain {
