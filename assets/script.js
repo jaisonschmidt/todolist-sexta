@@ -15,8 +15,19 @@ function createTask(taskTitle, taskDescription = "") {
         taskDescription,
     }
     tasks.push(task);
-    // renderTasks();
+    renderTasks();
     return task;
+}
+
+function getIndexByTaskId(taskId) {
+    return tasks.findIndex((task) => task.id == taskId);
+}
+
+function deleteTask(taskId) {
+    const taskIndex = getIndexByTaskId(taskId);
+    tasks.splice(taskIndex, 1);
+
+    renderTasks();
 }
 
 function renderTasks(listElement = taskListElement, emptyMessage = emptyTaskListElement) {
