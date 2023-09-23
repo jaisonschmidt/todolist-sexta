@@ -31,6 +31,42 @@ function deleteTask(taskId) {
     renderTasks();
 }
 
+function updateTask(task = {}) {
+    try {
+        const taskIndex = getIndexByTaskId(task.id);
+
+        tasks[taskIndex] = {
+            ...tasks[taskIndex],
+            ...task,
+        };
+
+        // reseta o campo
+        frmTask.frmAction.value = 'NEW_TASK';
+        renderTasks();
+        return tasks[taskIndex];
+    } catch (e) {
+        console.log(e);
+        return undefined;
+    }
+}
+
+function renderFormUpdate(taskId = -1) {
+    try {
+        const taskIndex = getIndexByTaskId(taskId);
+        const task = tasks[taskIndex];
+
+        frmTask.frmTaskId.value = task.id;
+        frmTask.txtTaskTitle.value = task.taskTitle;
+        frmTask.txtTaskDescription.value = task.taskDescription;
+        frmTask.frmAction.value = 'UPDATE_TASK';
+
+        frmTask.txtTaskTitle.focus();
+    } catch (e) {
+        console.log(e);
+        alert("Erro ao editar task");
+    }
+}
+
 function renderTasks(listElement = taskListElement, emptyMessage = emptyTaskListElement) {
     let finalHtml = "";
 
@@ -77,6 +113,14 @@ frmTask.addEventListener('submit', function(event) {
         frmTask.reset();
         return;
     }
+
+    updateTask({
+        id: frmTask.frmTaskId.value, 
+        taskTitle: frmTask.txtTaskTitle.value, 
+        taskDescription: frmTask.txtTaskDescription.value
+    });
+
+    frmTask.reset();
 })
 
 renderTasks();
